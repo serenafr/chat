@@ -2,6 +2,7 @@ function ContactList() {
 	this.contactList = document.getElementById('contact-list');
 	this.selectedContact = null;
 	this.nextId = 0;
+	this.contactChangeCallback = null;
 }
 
 function bind(func, scope) {
@@ -22,23 +23,16 @@ ContactList.prototype.addContact = function(name) {
 }
 
 ContactList.prototype.onClickContact = function(currentContact) {
-	var chatPanel = document.getElementById('chat-panel');
 	if (this.selectedContact) {
 		this.selectedContact.setSelected(false);
 	}
 	currentContact.setSelected(true);
 	this.selectedContact = currentContact;
-	chatPanel.style.display = '';
-} 
+	if (this.contactChangeCallback) {
+		this.contactChangeCallback(currentContact);
+	}
+}
 
-function init() {
-	var contactList = new ContactList();
-	contactList.addContact('Alice');
-	contactList.addContact('Bob');
-	contactList.addContact('Cathy');
-	contactList.addContact('Dave');
-	contactList.addContact('Ella');
-	contactList.addContact('Frank');
-	contactList.addContact('George');
-	contactList.addContact('Hans');
+ContactList.prototype.setContactChangeCallback = function(callback) {
+	this.contactChangeCallback = callback;
 }

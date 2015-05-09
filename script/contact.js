@@ -10,3 +10,7 @@ function Contact(id, name) {
 Contact.prototype.setSelected = function(selected) {
 	this.element.className = selected ? 'contact selected' : 'contact';
 }
+
+Contact.prototype.getName = function() {
+	return this.name;
+}
