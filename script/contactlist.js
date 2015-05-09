@@ -5,12 +5,6 @@ function ContactList() {
 	this.contactChangeCallback = null;
 }
 
-function bind(func, scope) {
-	return function() {
-		func.apply(scope, arguments);
-	}
-}
-
 ContactList.prototype.addContact = function(name) {
 	var contact = new Contact(this.nextId, name);
 	this.nextId++;

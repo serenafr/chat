@@ -1,3 +1,9 @@
+function bind(func, scope) {
+	return function() {
+		func.apply(scope, arguments);
+	}
+}
+
 function init() {
 	var contactList = new ContactList();
 	var chatPanel = new ChatPanel();

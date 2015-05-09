@@ -1,6 +1,10 @@
 function ChatPanel() {
 	this.panel = document.getElementById('chat-panel');
 	this.header = document.getElementById('chat-header');
+	var closeButton = document.getElementById('close-button');
+	closeButton.addEventListener(
+		'click', 
+		bind(this.onCloseClick, this));
 }
 
 ChatPanel.prototype.show = function(name) {
@@ -11,4 +15,8 @@ ChatPanel.prototype.show = function(name) {
 		chatName.removeChild(chatName.firstChild);
 	}
 	chatName.appendChild(text);
+}
+
+ChatPanel.prototype.onCloseClick = function() {
+	this.panel.style.display = 'none';
 }

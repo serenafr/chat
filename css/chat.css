@@ -95,3 +95,13 @@ body {
 	font-size: 20px;
 	color: #effef7;
 }
+
+#close-button {
+	float: right;
+	padding: 15px;
+	cursor: pointer;
+}
+
+#close-button:hover {
+	color: #effef7;
+}
