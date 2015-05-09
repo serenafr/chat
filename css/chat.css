@@ -15,17 +15,6 @@ body {
 	background-color: #f5f5f5;
 }
 
-#chat-panel {
-	float: right; 
-	width: 600px; 
-	height: 600px; 
-	background-color: #eff3f7;
-}
-
-#clear-panel {
-	clear: both;
-}
-
 .contact {
 	border-bottom-width: 1px;
 	border-bottom-color: #d5d6d7;
@@ -43,6 +32,17 @@ body {
 
 .contact.selected {
 	background: #bbbbbb;
+}
+
+#chat-panel {
+	float: right; 
+	width: 600px; 
+	height: 600px; 
+	background-color: #eff3f7;
+}
+
+#clear-panel {
+	clear: both;
 }
 
 #chat-header {
