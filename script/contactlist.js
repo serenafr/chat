@@ -17,6 +17,9 @@ ContactList.prototype.addContact = function(name) {
 }
 
 ContactList.prototype.onClickContact = function(currentContact) {
+	if (this.selectedContact == currentContact) {
+		return;
+	}
 	if (this.selectedContact) {
 		this.selectedContact.setSelected(false);
 	}
@@ -34,5 +37,6 @@ ContactList.prototype.setContactChangeCallback = function(callback) {
 ContactList.prototype.onPanelClose = function() {
 	if (this.selectedContact) {
 		this.selectedContact.setSelected(false);
+		this.selectedContact = null;
 	}
 }
