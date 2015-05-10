@@ -25,6 +25,8 @@ ChatPanel.prototype.show = function(name) {
 		chatName.removeChild(chatName.firstChild);
 	}
 	chatName.appendChild(text);
+	this.clearConversation();
+	this.inputBox.focus();
 }
 
 ChatPanel.prototype.onCloseClick = function() {
@@ -42,7 +44,7 @@ ChatPanel.prototype.getInputText = function() {
 
 ChatPanel.prototype.onSendClick = function() {
 	var str = this.getInputText();
-	if(str) {
+	if (str) {
 		this.setChatHistory(str);
 	}
 	this.inputBox.value = '';
@@ -51,14 +53,20 @@ ChatPanel.prototype.onSendClick = function() {
 
 ChatPanel.prototype.setChatHistory = function(str) {
 	var chatContentNode = document.createTextNode(str);
-	this.chatHistory.element = document.createElement('div');
-	this.chatHistory.element.appendChild(chatContentNode);
-	this.chatHistory.element.className = 'message-me';
-	this.chatHistory.appendChild(this.chatHistory.element);
+	var element = document.createElement('div');
+	element.appendChild(chatContentNode);
+	element.className = 'message-me';
+	this.chatHistory.appendChild(element);
 }
 
 ChatPanel.prototype.onEnterUp = function(event) {
 	if (event.keyCode == 13) {
 		this.onSendClick();
+	}
+}
+
+ChatPanel.prototype.clearConversation = function() {
+	while (this.chatHistory.lastChild) {
+		this.chatHistory.removeChild(this.chatHistory.lastChild);
 	}
 }
