@@ -105,3 +105,17 @@ body {
 #close-button:hover {
 	color: #effef7;
 }
+
+.message-me {
+	float: right;
+	clear: right;
+	border: 1px solid #d9d9d9;
+	background: #ffffff;
+	padding: 6px;
+	margin: 6px 10px 0 0;
+	font-size: 20px;
+	max-width: 450px;
+	word-wrap: break-word;
+	text-align: right;
+	border-radius: 5px;
+}
