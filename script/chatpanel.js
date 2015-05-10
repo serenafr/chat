@@ -5,6 +5,7 @@ function ChatPanel() {
 	closeButton.addEventListener(
 		'click', 
 		bind(this.onCloseClick, this));
+	this.panelCloseCallBack = null;
 }
 
 ChatPanel.prototype.show = function(name) {
@@ -19,4 +20,9 @@ ChatPanel.prototype.show = function(name) {
 
 ChatPanel.prototype.onCloseClick = function() {
 	this.panel.style.display = 'none';
+	this.panelCloseCallBack();
+}
+
+ChatPanel.prototype.setPanelCloseCallback = function(callback) {
+	this.panelCloseCallBack = callback;
 }

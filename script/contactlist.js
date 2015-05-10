@@ -30,3 +30,9 @@ ContactList.prototype.onClickContact = function(currentContact) {
 ContactList.prototype.setContactChangeCallback = function(callback) {
 	this.contactChangeCallback = callback;
 }
+
+ContactList.prototype.onPanelClose = function() {
+	if (this.selectedContact) {
+		this.selectedContact.setSelected(false);
+	}
+}

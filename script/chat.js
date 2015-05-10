@@ -9,7 +9,9 @@ function init() {
 	var chatPanel = new ChatPanel();
 	contactList.setContactChangeCallback(function(contact) {
 		chatPanel.show(contact.getName());
-	})
+	});
+	chatPanel.setPanelCloseCallback(
+		bind(contactList.onPanelClose, contactList));
 	contactList.addContact('Alice');
 	contactList.addContact('Bob');
 	contactList.addContact('Cathy');
