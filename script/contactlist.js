@@ -1,13 +1,10 @@
 function ContactList() {
 	this.contactList = document.getElementById('contact-list');
 	this.selectedContact = null;
-	this.nextId = 0;
 	this.contactChangeCallback = null;
 }
 
-ContactList.prototype.addContact = function(name) {
-	var contact = new Contact(this.nextId, name);
-	this.nextId++;
+ContactList.prototype.addContact = function(contact) {
 	this.contactList.appendChild(contact.element);
 	contact.element.addEventListener(
 		'click',

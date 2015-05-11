@@ -1,4 +1,7 @@
-function ChatPanel() {
+function ChatPanel(me, conversationManager) {
+	this.me = me;
+	this.contact = null;
+	this.conversationManager = conversationManager;
 	this.panel = document.getElementById('chat-panel');
 	this.header = document.getElementById('chat-header');
 	var closeButton = document.getElementById('close-button');
@@ -17,15 +20,16 @@ function ChatPanel() {
 		bind(this.onEnterUp, this));
 }
 
-ChatPanel.prototype.show = function(name) {
+ChatPanel.prototype.show = function(contact) {
 	this.panel.style.display = '';
+	this.contact = contact;
 	var chatName = document.getElementById('chat-name');
-	var text = document.createTextNode(name);
+	var text = document.createTextNode(contact.getName());
 	if (chatName.firstChild) {
 		chatName.removeChild(chatName.firstChild);
 	}
 	chatName.appendChild(text);
-	this.clearConversation();
+	this.loadConversation(contact);
 	this.inputBox.focus();
 }
 
@@ -43,16 +47,21 @@ ChatPanel.prototype.getInputText = function() {
 }
 
 ChatPanel.prototype.onSendClick = function() {
-	var str = this.getInputText();
-	if (str) {
-		this.setChatHistory(str);
+	var text = this.getInputText();
+	if (text) {	
+		var sender = this.me;
+		var time = new Date();
+		var message = new Message(sender, text, time);
+		var conversation = this.conversationManager.getConversation(this.contact.getId());
+		this.appendMessage(message);
+		this.addMessageToConversation(message, conversation);
 	}
 	this.inputBox.value = '';
 	this.inputBox.focus();
 }
 
-ChatPanel.prototype.setChatHistory = function(str) {
-	var chatContentNode = document.createTextNode(str);
+ChatPanel.prototype.appendMessage = function(message) {
+	var chatContentNode = document.createTextNode(message.text);
 	var element = document.createElement('div');
 	element.appendChild(chatContentNode);
 	element.className = 'message-me';
@@ -69,4 +78,17 @@ ChatPanel.prototype.clearConversation = function() {
 	while (this.chatHistory.lastChild) {
 		this.chatHistory.removeChild(this.chatHistory.lastChild);
 	}
+}
+
+ChatPanel.prototype.loadConversation = function(contact) {	
+	this.clearConversation();
+	var conversation = this.conversationManager.getConversation(contact.getId());
+	var messages = conversation.getMessages();
+	for (var i = 0; i < messages.length; i++) {
+		this.appendMessage(messages[i]);
+	}
+}
+
+ChatPanel.prototype.addMessageToConversation = function(message, conversation) {
+	conversation.addMessage(message);
 }

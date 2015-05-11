@@ -14,3 +14,7 @@ Contact.prototype.setSelected = function(selected) {
 Contact.prototype.getName = function() {
 	return this.name;
 }
+
+Contact.prototype.getId = function() {
+	return this.id;
+}

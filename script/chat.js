@@ -5,19 +5,18 @@ function bind(func, scope) {
 }
 
 function init() {
+	var me = new Contact(0, 'Christine');
 	var contactList = new ContactList();
-	var chatPanel = new ChatPanel();
+	var conversationManager = new ConversationManager();
+	var chatPanel = new ChatPanel(me, conversationManager);
 	contactList.setContactChangeCallback(function(contact) {
-		chatPanel.show(contact.getName());
+		chatPanel.show(contact);
 	});
 	chatPanel.setPanelCloseCallback(
 		bind(contactList.onPanelClose, contactList));
-	contactList.addContact('Alice');
-	contactList.addContact('Bob');
-	contactList.addContact('Cathy');
-	contactList.addContact('Dave');
-	contactList.addContact('Ella');
-	contactList.addContact('Frank');
-	contactList.addContact('George');
-	contactList.addContact('Hans');
+	var contactNames = ['Alice', 'Bob', 'Cathy', 'Dave', 'Ella', 'Frank', 'George', 'Hans'];
+	for (var i = 0; i < contactNames.length; i++) {
+		contact = new Contact(i, contactNames[i]);
+		contactList.addContact(contact);
+	}
 }
