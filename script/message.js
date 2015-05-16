@@ -4,7 +4,7 @@ function Message(sender, text, time) {
 	this.sendTime = time;
 }
 
-Message.prototype.getSenderName = function() {
+Message.prototype.getSender = function() {
 	return this.sender;
 }
 

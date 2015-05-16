@@ -64,7 +64,11 @@ ChatPanel.prototype.appendMessage = function(message) {
 	var chatContentNode = document.createTextNode(message.text);
 	var element = document.createElement('div');
 	element.appendChild(chatContentNode);
-	element.className = 'message-me';
+	if(message.getSender() == this.me) {
+		element.className = 'message-me';
+	} else {
+		element.className = 'message-received';
+	}
 	this.chatHistory.appendChild(element);
 }
 
@@ -91,4 +95,11 @@ ChatPanel.prototype.loadConversation = function(contact) {
 
 ChatPanel.prototype.addMessageToConversation = function(message, conversation) {
 	conversation.addMessage(message);
+}
+
+ChatPanel.prototype.receiveMessage = function(message) {
+	var sender = message.getSender();
+	if (sender == this.contact) {
+		this.appendMessage(message);		
+	}
 }
