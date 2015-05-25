@@ -53,8 +53,11 @@ ChatPanel.prototype.onSendClick = function() {
 		var time = new Date();
 		var message = new Message(sender, text, time);
 		var conversation = this.conversationManager.getConversation(this.contact.getId());
-		this.appendMessage(message);
+		var element = this.appendMessage(message);
 		this.addMessageToConversation(message, conversation);
+		this.conversationManager.sendMassageToServer(message, bind(function() {
+			this.sendSuccess(element);
+		}, this));
 	}
 	this.inputBox.value = '';
 	this.inputBox.focus();
@@ -70,6 +73,7 @@ ChatPanel.prototype.appendMessage = function(message) {
 		element.className = 'message-received';
 	}
 	this.chatHistory.appendChild(element);
+	return element;
 }
 
 ChatPanel.prototype.onEnterUp = function(event) {
@@ -102,4 +106,8 @@ ChatPanel.prototype.receiveMessage = function(message) {
 	if (sender == this.contact) {
 		this.appendMessage(message);		
 	}
+}
+
+ChatPanel.prototype.sendSuccess = function(element) {
+	element.style.color = 'red';
 }

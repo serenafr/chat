@@ -23,3 +23,20 @@ ConversationManager.prototype.onMessageReceived = function(message) {
 ConversationManager.prototype.addMessageReceivedCallback = function(callback) {
 	this.messageReceivedCallbacks.push(callback);
 }
+
+ConversationManager.prototype.sendMassageToServer = function(message, callback) {
+	var xhr = new XMLHttpRequest();
+	var params = 'senderId=' + message.getSender().getId() + '&' +
+		'receiverId=' + 1 + '&' +
+		'text=' + message.getSentText();
+	xhr.open('POST', '/sendmessage');
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	//xhr.setRequestHeader('Content-length', params.length);
+	//xhr.setRequestHeader('Connection', 'close');
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			callback();
+		}
+	}
+	xhr.send(params);
+}
