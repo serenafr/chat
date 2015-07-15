@@ -1,9 +1,3 @@
-function bind(func, scope) {
-	return function() {
-		func.apply(scope, arguments);
-	}
-}
-
 function init() {
 	var me = new Contact(3, 'Christine');
 	var conversationManager = new ConversationManager();
